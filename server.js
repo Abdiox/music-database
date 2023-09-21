@@ -22,7 +22,7 @@ app.get("/", async (request, response) => {
 });
 
 app.get("/artist", async (request, response) => {
-  const query = "SELECT * FROM music_db1 ORDER BY name;";
+  const query = "SELECT * FROM artist ORDER BY name;";
   dbConnection.query(query, (error, results, fields) => {
     if (error) {
       console.log(error);
