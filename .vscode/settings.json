@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/b8ac00f2-5ab9-41c8-b80d-4afd9c7cbdce/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/music-database",
+  "appService.deploySubpath": "."
+}
