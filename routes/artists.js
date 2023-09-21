@@ -1,9 +1,9 @@
-import { Router, request, response } from "express";
+import { Router } from "express";
 import dbConnection from "../database.js";
 
 const artistsRouter = Router();
 
-artistsRouter.get("/artist", async (request, response) => {
+artistsRouter.get("/artists", async (request, response) => {
     const query = "SELECT * FROM music_db1 ORDER BY name;";
     dbConnection.query(query, (error, results, fields) => {
         if (error) {
@@ -27,3 +27,5 @@ artistsRouter.get("/search", async (request, response) => {
     const [results] = await dbConnection.execute(query, values);
     response.json(results)
 })
+
+export default artistsRouter;
