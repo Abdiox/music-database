@@ -6,9 +6,30 @@
     <title>Music DB</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1>ohøj</h1>
-
+<main>
+    <div class="search-container">
+        <h2>Søg</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Søg efter artist, album eller track">
+            <button type="submit">Søg</button>
+        </form>
+    </div>
+    <div class="result-container">
+        <h2>Resultater</h2>
+        <div id="search-results">
+            <!-- Resultater vil blive vist her -->
+        </div>
+    </div>
+    <div class="add-edit-container">
+        <h2>Tilføj/Rediger</h2>
+        <form id="add-edit-form">
+            <!-- Formular til at tilføje eller redigere data -->
+        </form>
+    </div>
+</main>
+<footer>
+    <p>&copy; 2023 by AEM</p>
+</footer>
     <script src="app.js"></script>
 </body>
 </html>
