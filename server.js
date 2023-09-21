@@ -28,6 +28,28 @@ app.get("/artists", async (request, response) => {
   }
 });
 
+app.get("/album", async (request, response) => {
+  try {
+    const query = "SELECT * FROM album;";
+    const [rows, fields] = await dbConnection.execute(query);
+    response.json(rows);
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
+});
+
+app.get("/songs", async (request, response) => {
+  try {
+    const query = "SELECT * FROM songs;";
+    const [rows, fields] = await dbConnection.execute(query);
+    response.json(rows);
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
+});
+
 // app.get("/", async (request, response) => {
 //   response.send("Hello my brother");
 // });
