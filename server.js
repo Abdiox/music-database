@@ -17,18 +17,29 @@ app.listen(port, () => {
   console.log(`serveren kører på http://localhost:3333`);
 });
 
-app.get("/", async (request, response) => {
-  response.send("Hello my brother");
+app.get("/artists", async (request, response) => {
+  try {
+    const query = "SELECT * FROM artists ORDER BY name;";
+    const [rows, fields] = await dbConnection.execute(query);
+    response.json(rows);
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
 });
 
-app.get("/artist", async (request, response) => {
-  const query = "SELECT * FROM artist ORDER BY name;";
-  dbConnection.query(query, (error, results, fields) => {
-    if (error) {
-      console.log(error);
-      response.json({ message: error });
-    } else {
-      response.json(results);
-    }
-  });
-});
+// app.get("/", async (request, response) => {
+//   response.send("Hello my brother");
+// });
+
+// app.get("/artists", async (request, response) => {
+//   const query = "SELECT * FROM artists ORDER BY name;";
+//   dbConnection.query(query, (error, results, fields) => {
+//     if (error) {
+//       console.log(error);
+//       response.json({ message: error });
+//     } else {
+//       response.json(results);
+//     }
+//   });
+// });
