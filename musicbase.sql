@@ -1,7 +1,4 @@
-CREATE DATABASE test_database
-
-USE test_database
-
+USE music_database
 
 CREATE TABLE artists (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -12,7 +9,7 @@ CREATE TABLE artists (
     images VARCHAR(255)
 );
 
-CREATE TABLE album (
+CREATE TABLE albums (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     releaseDate DATE
@@ -39,7 +36,7 @@ CREATE TABLE albums_songs (
     album_id INT,
     song_id INT,
     position INT,
-    FOREIGN KEY (album_id) REFERENCES album(id),
+    FOREIGN KEY (album_id) REFERENCES albums(id),
     FOREIGN KEY (song_id) REFERENCES songs(id)
 );
 
@@ -216,7 +213,7 @@ VALUES
     (11, (SELECT id FROM songs WHERE title = 'Gbona'));
 
 -- Indsæt albumoplysninger for forskellige artister i albumtabellen
-INSERT INTO album (title, releaseDate)
+INSERT INTO albums (title, releaseDate)
 VALUES
     ('Love Yourself: Tear', '2018-05-18'),
     ('Divide', '2017-03-03'),
@@ -229,7 +226,6 @@ VALUES
     ('Grey Area', '2019-03-08'),
     ('25', '2015-11-20'),
     ('The Eminem Show', '2002-05-26');
-
 
 -- Indsæt forbindelser mellem album og sange med album_id 1 og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
@@ -276,30 +272,30 @@ VALUES
 -- Indsæt forbindelser mellem album og sange med album_id 7 (The Eminem Show) og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
 VALUES
-    (7, (SELECT id FROM songs WHERE title = 'Without Me'), 1),
-    (7, (SELECT id FROM songs WHERE title = 'Sing for the Moment'), 2),
-    (7, (SELECT id FROM songs WHERE title = 'Cleanin Out My Closet'), 3);
+    (11, (SELECT id FROM songs WHERE title = 'Without Me'), 1),
+    (11, (SELECT id FROM songs WHERE title = 'Sing for the Moment'), 2),
+    (11, (SELECT id FROM songs WHERE title = 'Cleanin'' Out My Closet'), 3);
 
 -- Indsæt forbindelser mellem album og sange med album_id 8 (25) og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
 VALUES
-    (8, (SELECT id FROM songs WHERE title = 'Hello'), 1),
-    (8, (SELECT id FROM songs WHERE title = 'Send My Love (To Your New Lover)'), 2),
-    (8, (SELECT id FROM songs WHERE title = 'When We Were Young'), 3);
+    (10, (SELECT id FROM songs WHERE title = 'Hello'), 1),
+    (10, (SELECT id FROM songs WHERE title = 'Send My Love (To Your New Lover)'), 2),
+    (10, (SELECT id FROM songs WHERE title = 'When We Were Young'), 3);
 
 -- Indsæt forbindelser mellem album og sange med album_id 10 (Konnichiwa) og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
 VALUES
-    (7, (SELECT id FROM songs WHERE title = 'Konnichiwa'), 1),
-    (7, (SELECT id FROM songs WHERE title = 'Lyrics'), 2),
+    (7, (SELECT id FROM songs WHERE title = 'Shutdown'), 1),
+    (7, (SELECT id FROM songs WHERE title = 'Man (Gang)'), 2),
     (7, (SELECT id FROM songs WHERE title = 'Crime Riddim'), 3);
 
 -- Indsæt forbindelser mellem album og sange med album_id 11 (Exodus) og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
 VALUES
-    (9, (SELECT id FROM songs WHERE title = 'Jamming'), 1),
-    (9, (SELECT id FROM songs WHERE title = 'One Love / People Get Ready'), 2),
-    (9, (SELECT id FROM songs WHERE title = 'Three Little Birds'), 3);
+    (9, (SELECT id FROM songs WHERE title = 'Offence'), 1),
+    (9, (SELECT id FROM songs WHERE title = 'Boss'), 2),
+    (9, (SELECT id FROM songs WHERE title = 'Venom'), 3);
 
 -- Indsæt forbindelser mellem album og sange med album_id 12 (Gang Signs and Prayers) og tilfældige positioner
 INSERT INTO albums_songs (album_id, song_id, position)
