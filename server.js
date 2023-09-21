@@ -14,7 +14,7 @@ app.get("/", (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log(`serveren kører på http://localhost:3000`);
+  console.log(`serveren kører på http://localhost:3333`);
 });
 
 app.get("/", async (request, response) => {
