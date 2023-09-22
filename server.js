@@ -95,6 +95,27 @@ app.get("/albums/:id", async (request, response) => {
   }
 });
 
+// SEE SPECIFIC SONG
+app.get("/songs/:id", async (request, response) => {
+  const id = request.params.id;
+  const query = /*sql*/ `
+    SELECT * 
+    FROM songs WHERE id=?;`; // sql query
+  const values = [id];
+
+  try {
+    const [results] = await dbConnection.execute(query, values);
+    if (results.length === 0) {
+      response.status(404).json({ message: "Artist not found" });
+    } else {
+      response.json(results);
+    }
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
+});
+
 // app.get("/", async (request, response) => {
 //   response.send("Hello my brother");
 // });
