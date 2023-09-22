@@ -98,4 +98,28 @@ artistsRouter.get("/:id/albums", async (request, response) => {
   }
 });
 
+artistsRouter.post("/", async (request, response) => {
+  try {
+    const { name, birthdate, genres, shortDescription, images } = request.body;
+
+    // Indsæt den nye artist i artists-tabellen
+    const insertArtistQuery = `
+      INSERT INTO artists (name, birthdate, genres, shortDescription, images)
+      VALUES (?, ?, ?, ?, ?);
+    `;
+
+    const insertArtistValues = [name, birthdate, genres, shortDescription, images];
+
+    const [artistResult] = await dbConnection.execute(insertArtistQuery, insertArtistValues);
+
+    // Hent ID'et for den nyoprettede kunstner
+    const artistId = artistResult.insertId;
+
+    response.status(201).json({ message: "Artist created successfully", artistId });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default artistsRouter;
