@@ -17,6 +17,7 @@ app.listen(port, () => {
   console.log(`serveren kører på http://localhost:3333`);
 });
 
+// SE ARTISTER
 app.get("/artists", async (request, response) => {
   try {
     const query = "SELECT * FROM artists ORDER BY name;";
@@ -28,6 +29,7 @@ app.get("/artists", async (request, response) => {
   }
 });
 
+// SE ALBUMS
 app.get("/album", async (request, response) => {
   try {
     const query = "SELECT * FROM album;";
@@ -39,6 +41,7 @@ app.get("/album", async (request, response) => {
   }
 });
 
+// SE ARTISTER
 app.get("/songs", async (request, response) => {
   try {
     const query = "SELECT * FROM songs;";
