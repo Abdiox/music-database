@@ -30,7 +30,7 @@ app.get("/artists", async (request, response) => {
 });
 
 // SEE ALBUMS
-app.get("/album", async (request, response) => {
+app.get("/albums", async (request, response) => {
   try {
     const query = "SELECT * FROM album;";
     const [rows, fields] = await dbConnection.execute(query);
@@ -59,6 +59,27 @@ app.get("/artists/:id", async (request, response) => {
   const query = /*sql*/ `
     SELECT * 
     FROM artists WHERE id=?;`; // sql query
+  const values = [id];
+
+  try {
+    const [results] = await dbConnection.execute(query, values);
+    if (results.length === 0) {
+      response.status(404).json({ message: "Artist not found" });
+    } else {
+      response.json(results);
+    }
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
+});
+
+// SEE SPECIFIC ALBUM
+app.get("/albums/:id", async (request, response) => {
+  const id = request.params.id;
+  const query = /*sql*/ `
+    SELECT * 
+    FROM albums WHERE id=?;`; // sql query
   const values = [id];
 
   try {
