@@ -80,6 +80,15 @@ songsRouter.get("/:id/songs", async (request, response) => {
 
 // ----------------------POST--------------------------//
 
+// Opret song
+// {
+//   "title": "xxxxx",
+//   "releaseDate": "YYYY-MM-DD",
+//   "length": "xx:xx",
+//   "artistIds": [x], 
+//   "albumIds": [x]
+// }
+
 songsRouter.post("/", async (request, response) => {
   try {
     // Extract song data from the request body
