@@ -133,5 +133,53 @@ albumsRouter.post("/", async (request, response) => {
   }
 });
 
+// -----------------------Update----------------------//
+
+albumsRouter.put("/:id", async (request, response) => {
+  try {
+    const albumId = request.params.id;
+
+    const { title, releaseDate, artistIds } = request.body;
+
+    const updateAlbumQuery = /*sql*/`
+    UPDATE albums
+    SET title = ?, releaseDate = ?
+    WHERE id = ?;
+    `
+    const updateAlbumValues = [title, releaseDate, albumId];
+
+    await dbConnection.execute(updateAlbumQuery, updateAlbumValues);
+
+    if (artistIds && artistIds.length > 0) {
+      const deleteAlbumArtistQuery = /*sql*/`
+      DELETE FROM artists_albums
+      WHERE album_id = ?
+      `
+      await dbConnection.execute(deleteAlbumArtistQuery, [albumId]);
+
+      const insertAlbumArtistQuery = artistIds.map((artistId) => {
+        return /*sql*/ `
+        INSERT INTO artists_albums (artist_id, album_id)
+        VALUES (?, ?);
+        `
+      })
+      const insertAlbumArtistValues = artistIds.map((artistId) => [artistId, albumId]);
+
+      // Udfør alle indsættelsesforespørgsler parallelt
+      await Promise.all(
+        insertAlbumArtistQuery.map(async (query, index) => {
+          await dbConnection.execute(query, insertAlbumArtistValues[index]);
+        })
+      );
+    }
+    response.json({ message: "Song updated successfully" });
+  } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+  
+});
+
+
 
 export default albumsRouter;
