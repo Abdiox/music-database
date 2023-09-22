@@ -77,4 +77,62 @@ albumsRouter.get("/:id/songs", async (request, response) => {
   }
 });
 
+// POSTMAN OPRET ALBUM:
+// {
+//   "title": "Nyt Album",
+//   "releaseDate": "2023-09-21"
+// }
+
+albumsRouter.post("/", async (request, response) => {
+  try {
+    const { title, releaseDate, artistIds } = request.body;
+
+    // Indsæt det nye album i albums-tabellen
+    const insertAlbumQuery = `
+      INSERT INTO albums (title, releaseDate)
+      VALUES (?, ?);
+    `;
+
+    const insertAlbumValues = [title, releaseDate];
+
+    const [albumResult] = await dbConnection.execute(insertAlbumQuery, insertAlbumValues);
+
+    // Hent ID'et for det nyoprettede album
+    const albumId = albumResult.insertId;
+
+    // Opret forbindelse mellem albummet og sange (hvis relevant)
+    if (request.body.songIds) {
+      const songIds = request.body.songIds;
+      for (const songId of songIds) {
+        const insertAlbumSongQuery = `
+          INSERT INTO albums_songs (album_id, song_id)
+          VALUES (?, ?);
+        `;
+        const insertAlbumSongValues = [albumId, songId];
+        await dbConnection.execute(insertAlbumSongQuery, insertAlbumSongValues);
+      }
+    }
+
+    // Opret forbindelse mellem albummet og kunstneren (f.eks. Burna Boy)
+    if (artistIds && artistIds.length > 0) {
+      const artistId = artistIds[0]; // Forudsætter, at der kun er én kunstner pr. album
+      const insertArtistAlbumQuery = `
+        INSERT INTO artists_albums (artist_id, album_id)
+        VALUES (?, ?);
+      `;
+
+      const insertArtistAlbumValues = [artistId, albumId];
+
+      await dbConnection.execute(insertArtistAlbumQuery, insertArtistAlbumValues);
+    }
+
+    response.status(201).json({ message: "Album created successfully" });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Opret sange i album:
+
 export default albumsRouter;

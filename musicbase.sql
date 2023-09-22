@@ -1,3 +1,5 @@
+CREATE DATABASE music_database;
+
 USE music_database
 
 CREATE TABLE artists (
@@ -39,6 +41,15 @@ CREATE TABLE albums_songs (
     FOREIGN KEY (album_id) REFERENCES albums(id),
     FOREIGN KEY (song_id) REFERENCES songs(id)
 );
+
+CREATE TABLE artists_albums (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    artist_id INT,
+    album_id INT,
+    FOREIGN KEY (artist_id) REFERENCES artists(id),
+    FOREIGN KEY (album_id) REFERENCES albums(id)
+);
+
 
 INSERT INTO artists (name, birthdate, genres, shortDescription, images) VALUES ('Eminem', '1972-10-17', 'Rap', 'American rapper, songwriter, and record producer', 'eminem.jpg'),
     ('Stormzy', '1993-07-26', 'Grime, Rap', 'British rapper and songwriter', 'stormzy.jpg'),
