@@ -229,4 +229,41 @@ songsRouter.put("/:id", async (request, response) => {
 });
 
 
+// ---------------------Delete----------------------//
+
+songsRouter.delete("/:id", async (request, response) => {
+    try {
+        const songId = request.params.id;
+
+        // Delete associations in albums_songs table first
+        const deleteAlbumSongQuery = /*sql*/ `
+      DELETE FROM albums_songs
+      WHERE song_id = ?;
+    `;
+
+        await dbConnection.execute(deleteAlbumSongQuery, [songId]);
+
+        // Delete associations in artists_songs table
+        const deleteArtistSongQuery = /*sql*/ `
+      DELETE FROM artists_songs
+      WHERE song_id = ?;
+    `;
+
+        await dbConnection.execute(deleteArtistSongQuery, [songId]);
+
+        // Delete the song from the songs table
+        const deleteSongQuery = /*sql*/ `
+      DELETE FROM songs
+      WHERE id = ?;
+    `;
+
+        await dbConnection.execute(deleteSongQuery, [songId]);
+
+        response.json({ message: "Song deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
+
 export default songsRouter;
