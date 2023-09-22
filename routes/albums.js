@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, request, response } from "express";
 import dbConnection from "../database.js";
 
 const albumsRouter = Router();
@@ -133,6 +133,5 @@ albumsRouter.post("/", async (request, response) => {
   }
 });
 
-// Opret sange i album:
 
 export default albumsRouter;

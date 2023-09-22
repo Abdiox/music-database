@@ -235,7 +235,7 @@ songsRouter.delete("/:id", async (request, response) => {
     try {
         const songId = request.params.id;
 
-        // Delete associations in albums_songs table first
+        // Slet først associationer i linking tabeller (artists_songs og albums_songs)
         const deleteAlbumSongQuery = /*sql*/ `
       DELETE FROM albums_songs
       WHERE song_id = ?;
@@ -243,7 +243,7 @@ songsRouter.delete("/:id", async (request, response) => {
 
         await dbConnection.execute(deleteAlbumSongQuery, [songId]);
 
-        // Delete associations in artists_songs table
+        // Eksekver sletnings querys for associationer i rækkefølge
         const deleteArtistSongQuery = /*sql*/ `
       DELETE FROM artists_songs
       WHERE song_id = ?;
@@ -251,7 +251,7 @@ songsRouter.delete("/:id", async (request, response) => {
 
         await dbConnection.execute(deleteArtistSongQuery, [songId]);
 
-        // Delete the song from the songs table
+        // Slet derefter sangen fra songs-tabellen
         const deleteSongQuery = /*sql*/ `
       DELETE FROM songs
       WHERE id = ?;
