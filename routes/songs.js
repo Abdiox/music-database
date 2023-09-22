@@ -80,7 +80,7 @@ songsRouter.get("/:id/songs", async (request, response) => {
 
 // ----------------------POST--------------------------//
 
-// Opret song
+// Opret og opdater song
 // {
 //   "title": "xxxxx",
 //   "releaseDate": "YYYY-MM-DD",
@@ -143,5 +143,92 @@ songsRouter.post("/", async (request, response) => {
     response.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+// ---------------------PUT-----------------------//
+
+
+
+songsRouter.put("/:id", async (request, response) => {
+    try {
+        const songId = request.params.id;
+
+        // Udtræk opdaterede sangdata fra anmodningskroppen
+        const { title, releaseDate, length, artistIds, albumIds } = request.body;
+
+        // Opdater sangen i songs-tabellen
+        const updateSongQuery = /*sql*/ `
+      UPDATE songs
+      SET title = ?, releaseDate = ?, length = ?
+      WHERE id = ?;
+    `;
+
+        const updateSongValues = [title, releaseDate, length, songId];
+
+        await dbConnection.execute(updateSongQuery, updateSongValues);
+
+        // Opdater forbindelser i artists_songs-tabellen
+        if (artistIds && artistIds.length > 0) {
+            // Slet eksisterende forbindelser for sangen
+            const deleteArtistSongQuery = /*sql*/ `
+        DELETE FROM artists_songs
+        WHERE song_id = ?;
+      `;
+
+            await dbConnection.execute(deleteArtistSongQuery, [songId]);
+
+            // Indsæt nye forbindelser
+            const insertArtistSongQueries = artistIds.map((artistId) => {
+                return /*sql*/ `
+          INSERT INTO artists_songs (artist_id, song_id)
+          VALUES (?, ?);
+        `;
+            });
+
+            const insertArtistSongValues = artistIds.map((artistId) => [artistId, songId]);
+
+            // Udfør alle indsættelsesforespørgsler parallelt
+            await Promise.all(
+                insertArtistSongQueries.map(async (query, index) => {
+                    await dbConnection.execute(query, insertArtistSongValues[index]);
+                })
+            );
+        }
+
+        // Opdater forbindelser i albums_songs-tabellen
+        if (albumIds && albumIds.length > 0) {
+            // Slet eksisterende forbindelser for sangen
+            const deleteAlbumSongQuery = /*sql*/ `
+        DELETE FROM albums_songs
+        WHERE song_id = ?;
+      `;
+
+            await dbConnection.execute(deleteAlbumSongQuery, [songId]);
+
+            // Indsæt nye forbindelser
+            const insertAlbumSongQueries = albumIds.map((albumId) => {
+                return /*sql*/ `
+          INSERT INTO albums_songs (album_id, song_id)
+          VALUES (?, ?);
+        `;
+            });
+
+            const insertAlbumSongValues = albumIds.map((albumId) => [albumId, songId]);
+
+            // Udfør alle indsættelsesforespørgsler parallelt
+            await Promise.all(
+                insertAlbumSongQueries.map(async (query, index) => {
+                    await dbConnection.execute(query, insertAlbumSongValues[index]);
+                })
+            );
+        }
+
+        response.json({ message: "Song updated successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
+
 
 export default songsRouter;
