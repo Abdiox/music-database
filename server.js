@@ -17,7 +17,7 @@ app.listen(port, () => {
   console.log(`serveren kører på http://localhost:3333`);
 });
 
-// SE ARTISTER
+// SEE ARTISTS
 app.get("/artists", async (request, response) => {
   try {
     const query = "SELECT * FROM artists ORDER BY name;";
@@ -29,7 +29,7 @@ app.get("/artists", async (request, response) => {
   }
 });
 
-// SE ALBUMS
+// SEE ALBUMS
 app.get("/album", async (request, response) => {
   try {
     const query = "SELECT * FROM album;";
@@ -41,12 +41,33 @@ app.get("/album", async (request, response) => {
   }
 });
 
-// SE ARTISTER
+// SEE ARTISTS
 app.get("/songs", async (request, response) => {
   try {
     const query = "SELECT * FROM songs;";
     const [rows, fields] = await dbConnection.execute(query);
     response.json(rows);
+  } catch (error) {
+    console.log(error);
+    response.json({ message: error.message });
+  }
+});
+
+// SEE SPECIFIC ARTIST
+app.get("/artists/:id", async (request, response) => {
+  const id = request.params.id;
+  const query = /*sql*/ `
+    SELECT * 
+    FROM artists WHERE id=?;`; // sql query
+  const values = [id];
+
+  try {
+    const [results] = await dbConnection.execute(query, values);
+    if (results.length === 0) {
+      response.status(404).json({ message: "Artist not found" });
+    } else {
+      response.json(results);
+    }
   } catch (error) {
     console.log(error);
     response.json({ message: error.message });
