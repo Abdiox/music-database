@@ -78,4 +78,61 @@ songsRouter.get("/:id/songs", async (request, response) => {
   }
 });
 
+// ----------------------POST--------------------------//
+
+songsRouter.post("/", async (request, response) => {
+    try {
+        // Extract song data from the request body
+        const { title, releaseDate, length, artistIds, albumIds } = request.body;
+
+        // Insert the new song into the songs table
+        const insertSongQuery = /*sql*/ `
+      INSERT INTO songs (title, releaseDate, length)
+      VALUES (?, ?, ?);
+    `;
+
+        const insertSongValues = [title, releaseDate, length];
+
+        const [songResult] = await dbConnection.execute(insertSongQuery, insertSongValues);
+
+        // Get the ID of the newly inserted song
+        const songId = songResult.insertId;
+
+        // Insert associations into artists_songs table
+        if (artistIds && artistIds.length > 0) {
+            const insertArtistSongQuery = /*sql*/ `
+        INSERT INTO artists_songs (artist_id, song_id)
+        VALUES (?, ?);
+      `;
+
+            const insertArtistSongValues = artistIds.map((artistId) => [artistId, songId]);
+
+            // Execute the insert queries for artists in sequence
+            for (const values of insertArtistSongValues) {
+                await dbConnection.execute(insertArtistSongQuery, values);
+            }
+        }
+
+        // Insert associations into albums_songs table
+        if (albumIds && albumIds.length > 0) {
+            const insertAlbumSongQuery = /*sql*/ `
+        INSERT INTO albums_songs (album_id, song_id)
+        VALUES (?, ?);
+      `;
+
+            const insertAlbumSongValues = albumIds.map((albumId) => [albumId, songId]);
+
+            // Execute the insert queries for albums in sequence
+            for (const values of insertAlbumSongValues) {
+                await dbConnection.execute(insertAlbumSongQuery, values);
+            }
+        }
+
+        response.status(201).json({ message: "Song created successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
+
 export default songsRouter;
