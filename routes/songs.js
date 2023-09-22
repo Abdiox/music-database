@@ -137,10 +137,10 @@ songsRouter.post("/", async (request, response) => {
             }
         }
 
-        response.status(201).json({ message: "Sang oprettet med succes" });
+        response.status(201).json({ message: "Song updated successfully" });
     } catch (error) {
         console.error(error);
-        response.status(500).json({ message: "Intern serverfejl" });
+        response.status(500).json({ message: "Internal server error" });
     }
 });
 

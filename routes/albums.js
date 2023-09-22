@@ -180,6 +180,42 @@ albumsRouter.put("/:id", async (request, response) => {
   
 });
 
+// --------------------DELETE-------------------//
+
+albumsRouter.delete("/:id", async (request, response) => {
+    try {
+        const albumId = request.params.id;
+
+        // Slet forbindelser i albums_songs-tabellen
+        const deleteAlbumSongsQuery = /*sql*/ `
+      DELETE FROM albums_songs
+      WHERE album_id = ?;
+    `;
+
+        await dbConnection.execute(deleteAlbumSongsQuery, [albumId]);
+
+        // Slet forbindelser i artists_albums-tabellen
+        const deleteAlbumArtistsQuery = /*sql*/ `
+      DELETE FROM artists_albums
+      WHERE album_id = ?;
+    `;
+
+        await dbConnection.execute(deleteAlbumArtistsQuery, [albumId]);
+
+        // Slet albummet fra albums-tabellen
+        const deleteAlbumQuery = /*sql*/ `
+      DELETE FROM albums
+      WHERE id = ?;
+    `;
+
+        await dbConnection.execute(deleteAlbumQuery, [albumId]);
+
+        response.json({ message: "Album deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
 
 
 export default albumsRouter;
