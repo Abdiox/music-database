@@ -122,4 +122,51 @@ artistsRouter.post("/", async (request, response) => {
   }
 });
 
+artistsRouter.put("/:id", async (request, response) => {
+    try {
+        const artistId = request.params.id;
+
+        // Udtræk opdaterede kunstneroplysninger fra anmodningens krop
+        const { name, birthdate, genres, shortDescription, images } = request.body;
+
+        // Opdater kunstneren i artists-tabellen
+        const updateArtistQuery = /*sql*/ `
+        UPDATE artists
+        SET name = ?, birthdate = ?, genres = ?, shortDescription = ?, images = ?
+        WHERE id = ?;
+        `;
+
+        const updateArtistValues = [name, birthdate, genres, shortDescription, images, artistId];
+
+        await dbConnection.execute(updateArtistQuery, updateArtistValues);
+
+        response.json({ message: "Artist updated successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
+
+artistsRouter.delete("/:id", async (request, response) => {
+    try {
+        const artistId = request.params.id;
+
+        // Slet kunstneren fra artists-tabellen
+        const deleteArtistQuery = /*sql*/ `
+      DELETE FROM artists
+      WHERE id = ?;
+    `;
+
+        await dbConnection.execute(deleteArtistQuery, [artistId]);
+
+        // Hvis du vil slette eventuelle tilknyttede data, f.eks. sange eller albums, skal du håndtere det her.
+
+        response.json({ message: "Artist deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        response.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 export default artistsRouter;
