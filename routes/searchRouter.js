@@ -3,7 +3,7 @@ import dbConnection from "../database.js";
 
 const searchRouter = Router();
 
-searchRouter.get("/search", async (request, response) => {
+searchRouter.get("/", async (request, response) => {
     const searchString = request.query.q;
 
     // Search for artists, songs, and albums
