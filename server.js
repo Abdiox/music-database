@@ -178,6 +178,88 @@ app.get("/artists/:id/albums", async (request, response) => {
   }
 });
 
+// GET SONGS FROM SPECIFIK ALBUM
+app.get("/albums/:id/songs", async (request, response) => {
+  try {
+    const albumId = request.params.id;
+
+    // Først skal vi finde albummets oplysninger
+    const albumQuery = /*sql*/ `
+      SELECT * FROM albums WHERE id = ?;
+    `;
+
+    const [albumInfo] = await dbConnection.execute(albumQuery, [albumId]);
+
+    if (!albumInfo.length) {
+      return response.status(404).json({ message: "Album not found" });
+    }
+
+    // Nu skal vi hente sange, der tilhører dette album
+    const songsQuery = /*sql*/ `
+      SELECT songs.*, artists.name AS artistName
+      FROM songs
+      INNER JOIN albums_songs ON songs.id = albums_songs.song_id
+      INNER JOIN artists_songs ON songs.id = artists_songs.song_id
+      INNER JOIN artists ON artists_songs.artist_id = artists.id
+      WHERE albums_songs.album_id = ?;
+    `;
+
+    const [songs] = await dbConnection.execute(songsQuery, [albumId]);
+
+    // Opret et objekt med albumoplysninger og de tilhørende sange
+    const albumWithSongs = {
+      albumInfo: albumInfo[0],
+      songs: songs,
+    };
+
+    response.json(albumWithSongs);
+  } catch (error) {
+    console.error(error);
+    response.json({ message: error.message });
+  }
+});
+
+// Route for at hente en kunstners oplysninger og sange
+app.get("/artists/:id/songs", async (request, response) => {
+  try {
+    const artistId = request.params.id;
+
+    // Først skal vi finde kunstnerens oplysninger
+    const artistQuery = /*sql*/ `
+      SELECT * FROM artists WHERE id = ?;
+    `;
+
+    const [artistInfo] = await dbConnection.execute(artistQuery, [artistId]);
+
+    if (!artistInfo.length) {
+      return response.status(404).json({ message: "Artist not found" });
+    }
+
+    // Nu skal vi hente kunstnerens sange
+    const songsQuery = /*sql*/ `
+      SELECT songs.*, albums.title AS albumTitle
+      FROM songs
+      INNER JOIN artists_songs ON songs.id = artists_songs.song_id
+      INNER JOIN albums_songs ON songs.id = albums_songs.song_id
+      INNER JOIN albums ON albums_songs.album_id = albums.id
+      WHERE artists_songs.artist_id = ?;
+    `;
+
+    const [songs] = await dbConnection.execute(songsQuery, [artistId]);
+
+    // Opret et objekt med kunstnerens oplysninger og hans/hendes sange
+    const artistWithSongs = {
+      artistInfo: artistInfo[0],
+      songs: songs,
+    };
+
+    response.json(artistWithSongs);
+  } catch (error) {
+    console.error(error);
+    response.json({ message: error.message });
+  }
+});
+
 // app.get("/:id", async (request, response) => {
 //   try {
 //     const id = request.params.id;
