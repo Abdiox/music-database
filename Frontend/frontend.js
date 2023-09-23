@@ -1,10 +1,11 @@
 "use strict";
 
-import { endpoint, getAlbums, getArtists } from "./rest-service.js";
+import { endpoint, getAlbums, getArtists, getSongs } from "./rest-service.js";
 
 endpoint;
 let artists;
 let albums;
+let songs;
 window.addEventListener("load", artistApp);
 
 async function artistApp() {
@@ -13,25 +14,15 @@ async function artistApp() {
   await getAlbums();
   updateGrid();
 }
-
-// Simuler en liste over artister, albums og tracks (erstat med API-kald)
-// const database = [
-//   { type: "artist", name: "Artist 1" },
-//   { type: "artist", name: "Artist 2" },
-//   { type: "album", name: "Album 1" },
-//   { type: "album", name: "Album 2" },
-//   { type: "track", name: "Track 1" },
-//   { type: "track", name: "Track 2" },
-//   // Tilføj flere elementer her
-// ];
-
 //-------------------Update Grid----------------------//
 
 async function updateGrid() {
   artists = await getArtists();
   albums = await getAlbums();
+  songs = await getSongs();
   displayArtists(artists);
   displayAlbums(albums);
+  displaySongs(songs);
   console.log(artists);
 }
 
@@ -85,6 +76,30 @@ function showAlbums(albumObject) {
   document.querySelector("#albums").insertAdjacentHTML("beforeend", html);
 }
 
+//------------------- Get Songs  ----------------------//
+function displaySongs(listOfSongs) {
+  document.querySelector("#songs").innerHTML = "";
+  for (const songs of listOfSongs) {
+    showSongs(songs);
+  }
+}
+
+function showSongs(songsObject) {
+  const html = /*html*/ `
+    <article class="grid-item">
+    <h1>${songsObject.title}</h1>
+    <div class="grid-info">
+    <h2>${songsObject.releaseDate}</h2>
+     <h2>${songsObject.length}</h2>
+      </div>
+      <div class="btns">
+        <button class="btn-update">Opdater</button>
+        <button class="btn-delete">Slet</button>    
+      </div>
+    </article>
+  `;
+  document.querySelector("#songs").insertAdjacentHTML("beforeend", html);
+}
 // ----------- SEARCH ----------- //
 function search() {
   const searchInput = document.getElementById("searchInput").value.toLowerCase();

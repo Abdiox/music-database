@@ -1,6 +1,6 @@
 "use strict";
 
-export { endpoint, getArtists, getAlbums };
+export { endpoint, getArtists, getAlbums, getSongs };
 
 const endpoint = "http://localhost:3333";
 
@@ -12,6 +12,12 @@ async function getArtists() {
 
 async function getAlbums() {
   const response = await fetch(`${endpoint}/albums`);
+  const data = await response.json();
+  return data;
+}
+
+async function getSongs() {
+  const response = await fetch(`${endpoint}/songs`);
   const data = await response.json();
   return data;
 }
