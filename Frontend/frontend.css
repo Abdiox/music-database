@@ -103,6 +103,20 @@ footer {
   padding: 1.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center; /* Tilføjet for at centrere indhold vertikalt */
+}
+
+.grid-item h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 1.5em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center; /* Tilføjet for at centrere indhold vertikalt */
 }
 
 .grid-item:hover {
@@ -111,10 +125,11 @@ footer {
 }
 
 .grid-item img {
-  width: 100%;
-  height: auto;
+  width: 100%; /* Bredde er 100% af forældrecontaineren (grid-item) */
+  height: auto; /* Bevar billedets aspektratio */
   border: 2px solid #fff;
   border-radius: 5px;
+  max-height: 300px; /* Tilføjet maksimal højde for at begrænse billedets størrelse */
 }
 
 .grid-info {
@@ -132,7 +147,7 @@ footer {
 }
 
 .grid-info h3 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .grid-item .btns {

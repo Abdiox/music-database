@@ -53,7 +53,7 @@ function displayArtists(listOfArtist) {
 function showArtists(artistObject) {
   const html = /*html*/ `
     <article class="grid-item">
-      <img src= "${artistObject.image}"/>
+      <img src= "${artistObject.images}"/>
       <div class="grid-info">
         <h2>${artistObject.name}</h2>
         <h3>${artistObject.genres}</h3>
@@ -105,7 +105,7 @@ function showSongs(songsObject) {
     <h1>${songsObject.title}</h1>
     <div class="grid-info">
     <h2>${songsObject.releaseDate}</h2>
-     <h2>${songsObject.length}</h2>
+     <h3>${songsObject.length}</h3>
       </div>
       <div class="btns">
         <button class="btn-update">Opdater</button>
