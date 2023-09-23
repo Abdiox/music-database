@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musik DB</title>
+    <link rel="stylesheet" href="frontend.css">
+</head>
+
+<header>
+    <h1>Musik Databasen</h1>
+</header>
+
+<main>
+
+  <div>
+  <label for="sort-artist">Sort by:</label>
+  <select name="sort-artist" id="sort-artist">
+  <option value="">Not selected</option>
+  <option value="name">Name</option>
+  <option value="birthdate">Birthdate</option>
+  </select>
+  <label for="filter-artist">Filter:</label>
+  <select name="filter-artist" id="filter-artist">
+  <option value="allArtists">Non selected</option>
+            <option value="favourites">Favourites</option>
+          </select required> <br /><br /> 
+        </div>
+      </section>
+      <section id="artists" class="grid-container"></section>
+
+    <div class="search-container">
+        <h2>Søg</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Søg efter artist, album eller track">
+            <button type="submit">Søg</button>
+        </form>
+    </div>
+    <div class="result-container">
+        <h2>Visning af data</h2>
+        <div id="search-results">
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2023 by AEM</p>
+</footer>
+
+    <script src="frontend.js" type="module"></script>
+</body>
+</html>
