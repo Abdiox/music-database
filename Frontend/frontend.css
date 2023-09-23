@@ -152,7 +152,15 @@ footer {
 
 .grid-item .btns {
   display: flex;
+  justify-content: center;
   align-items: center;
+  margin-top: 10px;
+}
+
+.btn-update,
+.btn-delete {
+  margin: 5px;
+  padding: 10px 20px;
 }
 
 .grid-item button {
