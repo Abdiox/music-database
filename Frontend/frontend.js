@@ -1,8 +1,8 @@
 "use strict";
 
 import { endpoint, getAlbums, getArtists, getSongs } from "./rest-service.js";
-import { inputSearchChanged } from "./helpers.js";
-export { artists, displayArtists };
+import { inputSearchChanged, inputSearchChangedAlbum, inputSearchChangedSong } from "./helpers.js";
+export { artists, albums, songs, displayArtists, displayAlbums, displaySongs };
 
 endpoint;
 let artists;
@@ -17,9 +17,17 @@ async function artistApp() {
   await getSongs();
   updateGrid();
 
-  //Searchbar sort
-  document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
-  document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
+  //Searchbar Artister Sort
+  document.querySelector("#input-search-artist").addEventListener("keyup", inputSearchChanged);
+  document.querySelector("#input-search-artist").addEventListener("search", inputSearchChanged);
+
+  //Searchbar Albums Sort
+  document.querySelector("#input-search-album").addEventListener("keyup", inputSearchChangedAlbum);
+  document.querySelector("#input-search-album").addEventListener("search", inputSearchChangedAlbum);
+
+  //Searchbar Songs Sort
+  document.querySelector("#input-search-song").addEventListener("keyup", inputSearchChangedSong);
+  document.querySelector("#input-search-song").addEventListener("search", inputSearchChangedSong);
 }
 //-------------------Update Grid----------------------//
 
