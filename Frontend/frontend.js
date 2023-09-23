@@ -1,14 +1,16 @@
 "use strict";
 
-import { endpoint, getArtists } from "./rest-service.js";
+import { endpoint, getAlbums, getArtists } from "./rest-service.js";
 
 endpoint;
 let artists;
+let albums;
 window.addEventListener("load", artistApp);
 
 async function artistApp() {
   console.log("Velkommen til Musik Databasen!");
   await getArtists();
+  await getAlbums();
   updateGrid();
 }
 
@@ -27,7 +29,9 @@ async function artistApp() {
 
 async function updateGrid() {
   artists = await getArtists();
+  albums = await getAlbums();
   displayArtists(artists);
+  displayAlbums(albums);
   console.log(artists);
 }
 
@@ -55,6 +59,30 @@ function showArtists(artistObject) {
     </article>
   `;
   document.querySelector("#artists").insertAdjacentHTML("beforeend", html);
+}
+
+//------------------- Get Albums  ----------------------//
+function displayAlbums(listOfAlbums) {
+  document.querySelector("#albums").innerHTML = "";
+  for (const albums of listOfAlbums) {
+    showAlbums(albums);
+  }
+}
+
+function showAlbums(albumObject) {
+  const html = /*html*/ `
+    <article class="grid-item">
+      <h1>${albumObject.title}</h1>
+      <div class="grid-info">
+        <h2>${albumObject.releaseDate}</h2>
+      </div>
+      <div class="btns">
+        <button class="btn-update">Opdater</button>
+        <button class="btn-delete">Slet</button>    
+      </div>
+    </article>
+  `;
+  document.querySelector("#albums").insertAdjacentHTML("beforeend", html);
 }
 
 // ----------- SEARCH ----------- //

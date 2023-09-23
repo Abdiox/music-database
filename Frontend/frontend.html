@@ -23,7 +23,11 @@
   <label for="filter-artist">Filter:</label>
   <select name="filter-artist" id="filter-artist">
   <option value="allArtists">Non selected</option>
-            <option value="favourites">Favourites</option>
+            <option value="rap">Rap</option>
+            <option value="gop">pop</option>
+            <option value="grime">Grime</option>
+            <option value="reggae">Reggae</option>
+            <option value="k-pop">K-pop</option>
           </select required> <br /><br /> 
         </div>
       </section>
@@ -37,9 +41,11 @@
         </form>
     </div>
     <div class="result-container">
-        <h2>Visning af data</h2>
+        <h2>Visning af Albums</h2>
         <div id="search-results">
         </div>
+              <section id="albums" class="grid-container"></section>
+
     </div>
 
 </main>
