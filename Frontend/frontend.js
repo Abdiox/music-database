@@ -1,6 +1,8 @@
 "use strict";
 
 import { endpoint, getAlbums, getArtists, getSongs } from "./rest-service.js";
+import { inputSearchChanged } from "./helpers.js";
+export { artists, displayArtists };
 
 endpoint;
 let artists;
@@ -12,7 +14,12 @@ async function artistApp() {
   console.log("Velkommen til Musik Databasen!");
   await getArtists();
   await getAlbums();
+  await getSongs();
   updateGrid();
+
+  //Searchbar sort
+  document.querySelector("#input-search").addEventListener("keyup", inputSearchChanged);
+  document.querySelector("#input-search").addEventListener("search", inputSearchChanged);
 }
 //-------------------Update Grid----------------------//
 
@@ -99,59 +106,4 @@ function showSongs(songsObject) {
     </article>
   `;
   document.querySelector("#songs").insertAdjacentHTML("beforeend", html);
-}
-// ----------- SEARCH ----------- //
-function search() {
-  const searchInput = document.getElementById("searchInput").value.toLowerCase();
-  const searchList = document.getElementById("searchList");
-  searchList.innerHTML = "";
-
-  // Filtrer søgeresultater baseret på søgekriteriet
-  const results = database.filter((item) => item.name.toLowerCase().includes(searchInput));
-
-  if (results.length === 0) {
-    searchList.innerHTML = "<li>No results found.</li>";
-  } else {
-    results.forEach((result) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `Type: ${result.type}, Name: ${result.name}`;
-      searchList.appendChild(listItem);
-    });
-  }
-}
-
-function searchAlbumsByArtist(artistName) {
-  const searchList = document.getElementById("searchList");
-  searchList.innerHTML = "";
-
-  // Filtrer albums baseret på artistens navn
-  const artistAlbums = database.filter((item) => item.type === "album" && item.name.toLowerCase().includes(artistName.toLowerCase()));
-
-  if (artistAlbums.length === 0) {
-    searchList.innerHTML = "<li>No albums found for this artist.</li>";
-  } else {
-    artistAlbums.forEach((album) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `Album: ${album.name}`;
-      searchList.appendChild(listItem);
-    });
-  }
-}
-
-function searchTracksOnAlbum(albumName) {
-  const searchList = document.getElementById("searchList");
-  searchList.innerHTML = "";
-
-  // Filtrer tracks baseret på albummets navn
-  const albumTracks = database.filter((item) => item.type === "track" && item.name.toLowerCase().includes(albumName.toLowerCase()));
-
-  if (albumTracks.length === 0) {
-    searchList.innerHTML = "<li>No tracks found on this album.</li>";
-  } else {
-    albumTracks.forEach((track) => {
-      const listItem = document.createElement("li");
-      listItem.textContent = `Track: ${track.name}`;
-      searchList.appendChild(listItem);
-    });
-  }
 }
