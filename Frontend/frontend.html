@@ -12,6 +12,14 @@
 </header>
 
 <main>
+   <div class="search-container">
+        <h2>Søg</h2>
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Søg efter artist, album eller track">
+            <button type="submit">Søg</button>
+        </form>
+    </div>
+    
 
   <div>
   <label for="sort-artist">Sort by:</label>
@@ -31,19 +39,25 @@
           </select required> <br /><br /> 
         </div>
       </section>
+       
+  <div class="result-container">
+    <div class="artists-section">
+        <h2>Visning af Kunstnere</h2>
+        <div id="artist-results">
+            <!-- Her vises resultaterne for kunstnere -->
+        </div>
+    </div>
       <section id="artists" class="grid-container"></section>
 
-    <div class="search-container">
-        <h2>Søg</h2>
-        <form id="search-form">
-            <input type="text" id="search-input" placeholder="Søg efter artist, album eller track">
-            <button type="submit">Søg</button>
-        </form>
-    </div>
-    <div class="result-container">
+
+    <div class="albums-section">
         <h2>Visning af Albums</h2>
-        <div id="search-results">
+        <div id="album-results">
+            <!-- Her vises resultaterne for albums -->
         </div>
+    </div>
+</div>
+
               <section id="albums" class="grid-container"></section>
 
     </div>
