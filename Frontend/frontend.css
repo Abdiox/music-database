@@ -125,11 +125,12 @@ footer {
 }
 
 .grid-item img {
-  width: 100%; /* Bredde er 100% af forældrecontaineren (grid-item) */
-  height: auto; /* Bevar billedets aspektratio */
+  width: 100%;
+  height: auto;
   border: 2px solid #fff;
   border-radius: 5px;
-  max-height: 300px; /* Tilføjet maksimal højde for at begrænse billedets størrelse */
+  max-height: 300px;
+  max-width: 300px;
 }
 
 .grid-info {
