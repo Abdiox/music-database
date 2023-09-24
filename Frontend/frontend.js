@@ -59,8 +59,8 @@ function showArtists(artistObject) {
         <h3>${artistObject.genres}</h3>
       </div>
       <div class="btns">
-        <button class="btn-update">Opdater</button>
-        <button class="btn-delete">Slet</button>    
+        <button class="btn-update">Update</button>
+        <button class="btn-delete">Delete</button>    
       </div>
     </article>
   `;
@@ -83,8 +83,8 @@ function showAlbums(albumObject) {
         <h2>${albumObject.releaseDate}</h2>
       </div>
       <div class="btns">
-        <button class="btn-update">Opdater</button>
-        <button class="btn-delete">Slet</button>    
+        <button class="btn-update">Update</button>
+        <button class="btn-delete">Delete</button>    
       </div>
     </article>
   `;
@@ -108,8 +108,8 @@ function showSongs(songsObject) {
      <h3>${songsObject.length}</h3>
       </div>
       <div class="btns">
-        <button class="btn-update">Opdater</button>
-        <button class="btn-delete">Slet</button>    
+        <button class="btn-update">Update</button>
+        <button class="btn-delete">Delete</button>    
       </div>
     </article>
   `;
