@@ -5,7 +5,7 @@ Dette repository indeholder en simpel musikdatabaseapp, der giver dig mulighed f
 ### Links til reposetories:
 
 - [Backend Repository](https://github.com/Abdiox/music-database)
-- [Deployet Backend]()
+- [Deployet Backend](http://aem-hej.mysql.database.azure.com/)
 - [Frontend Repository](https://github.com/emsc0001/music-database-frontend)
 - [Deployet Frontend (GitHub Pages)](Link:)
 
