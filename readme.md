@@ -40,6 +40,10 @@ Når både backend og frontend er startet, kan du åbne din webbrowser og besøg
 Backend er deployet på:
 Frontend er åben på GitHub Pages og kan tilgås her:
 
+### Web-applikation, deployet til Azure:
+
+http://aem-hej.mysql.database.azure.com/
+
 ## ER-Diagram:
 
 ![Alt text](ER-Diagram.png)
