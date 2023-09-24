@@ -41,7 +41,7 @@ async function updateGrid() {
   console.log(artists);
 }
 
-//------------------- Get Artist  ----------------------//
+//------------------- Get Artists  ----------------------//
 
 function displayArtists(listOfArtist) {
   document.querySelector("#artists").innerHTML = "";

@@ -1,4 +1,3 @@
-/* Reset CSS */
 body,
 h1,
 h2,
@@ -13,7 +12,6 @@ button {
   box-sizing: border-box;
 }
 
-/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -43,7 +41,6 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Form Styles */
 form {
   display: flex;
   justify-content: space-between;
@@ -78,7 +75,6 @@ button:hover,
   background-color: #444;
 }
 
-/* Footer Styles */
 footer {
   background-color: #333;
   color: #fff;
@@ -86,7 +82,6 @@ footer {
   padding: 1rem 0;
 }
 
-/* Grid Container Styles */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -94,7 +89,6 @@ footer {
   padding: 0.6em;
 }
 
-/* Grid Item Styles */
 .grid-item {
   background-color: #292626;
   color: #fff;
@@ -103,7 +97,7 @@ footer {
   padding: 1.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
-  text-align: center; /* Tilføjet for at centrere indhold vertikalt */
+  text-align: center;
 }
 
 .grid-item h1 {
@@ -116,7 +110,7 @@ footer {
   padding: 1.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
-  text-align: center; /* Tilføjet for at centrere indhold vertikalt */
+  text-align: center;
 }
 
 .grid-item:hover {
@@ -180,7 +174,7 @@ footer {
   background-color: #444;
 }
 
-/* ALBUM SECTION */
+/* ARTISTS SECTION */
 
 .artists-section {
   background-color: #f4f4f4;
@@ -224,7 +218,7 @@ footer {
   margin-top: 10px;
 }
 
-/* ALBUM SECTION */
+/* SONGS SECTION */
 .songs-section {
   background-color: #f4f4f4;
   padding: 20px;
