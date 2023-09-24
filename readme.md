@@ -39,3 +39,7 @@ Når både backend og frontend er startet, kan du åbne din webbrowser og besøg
 
 Backend er deployet på:
 Frontend er åben på GitHub Pages og kan tilgås her:
+
+## ER-Diagram:
+
+![Alt text](ER-Diagram.png)
