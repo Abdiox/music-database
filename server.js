@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (request, response) => {
-  response.send("Node.js Users REST API 🎉");
+  response.send("MUSIK DATASEN BY AEM😎");
 });
 
 app.listen(port, () => {

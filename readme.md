@@ -5,9 +5,9 @@ Dette repository indeholder en simpel musikdatabaseapp, der giver dig mulighed f
 ### Links til reposetories:
 
 - [Backend Repository](https://github.com/Abdiox/music-database)
-- [Deployet Backend](http://aem-hej.mysql.database.azure.com/)
+- [Deployet Backend](https://music-database.azurewebsites.net/)
 - [Frontend Repository](https://github.com/emsc0001/music-database-frontend)
-- [Deployet Frontend (GitHub Pages)](Link:)
+- [Deployet Frontend (GitHub Pages)](https://emsc0001.github.io/music-database-frontend/?fbclid=IwAR2rFZHkzk7ITrNGgjF4aWqp8s_JHQDah3KgTl9PNTfAUPk5JSUYXVGn-c8)
 
 ## Installation
 
@@ -40,11 +40,11 @@ Når både backend og frontend er startet, kan du åbne din webbrowser og besøg
 ### Deployede Versioner
 
 Backend er deployet på:
-Frontend er åben på GitHub Pages og kan tilgås her:
+Frontend er åben på GitHub Pages og kan tilgås her: [Link til deployet Frontend](https://emsc0001.github.io/music-database-frontend/?fbclid=IwAR2rFZHkzk7ITrNGgjF4aWqp8s_JHQDah3KgTl9PNTfAUPk5JSUYXVGn-c8)
 
 ### Web-applikation, deployet til Azure:
 
-[Live Webapplikation på Azure](http://aem-hej.mysql.database.azure.com/)
+[Live Webapplikation på Azure](https://music-database.azurewebsites.net/)
 
 ## ER-Diagram:
 
