@@ -12,7 +12,7 @@ const app = express();
 const port = process.env.PORT || 3333;
 const debug = Debug("app:startup");
 
-debug("Something Happened");
+debug("App Started Succesfully");
 
 app.use(express.json());
 app.use(cors());
@@ -22,7 +22,7 @@ app.get("/", (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log(`serveren kører på http://localhost:3333`);
+  console.log(`Serveren kører på http://localhost:3333`);
 });
 
 // Routers
