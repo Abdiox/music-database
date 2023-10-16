@@ -27,13 +27,11 @@ git clone: <https://github.com/Abdiox/music-database>
 _Husk at install de nødvendige dependencies til din package.json fil_ 4. npm install mysql2
 npm install express
 npm install dotenv
-npm install cors
-npm install npm install debug
+npm install cors.
 
 5. npm start
 
-6. app:startup App Started Succesfully +0ms
-   Serveren kører på http://localhost:3333
+6. Backend-serveren kører nu på http://localhost:3333.
 
 ### Brug
 
