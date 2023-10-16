@@ -1,6 +1,10 @@
 import mysql from "mysql2/promise"; // using mysql2 - installed npm library
 import "dotenv/config";
 import fs from "fs/promises";
+import { log } from "console";
+import debug from "debug";
+
+const dbBugger = debug("app:database");
 
 const connection = {
   host: process.env.MYSQL_HOST,
@@ -14,7 +18,7 @@ const connection = {
 if (process.env.MYSQL_CERT) {
   connection.ssl = { ca: await fs.readFile("DigiCertGlobalRootCA.crt.pem") };
 }
-
 const dbConnection = await mysql.createConnection(connection);
+dbBugger("Database Connected Succesfully");
 
 export default dbConnection;

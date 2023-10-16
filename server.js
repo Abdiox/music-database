@@ -6,9 +6,13 @@ import artistsRouter from "./routes/artists.js";
 import albumsRouter from "./routes/albums.js";
 import songsRouter from "./routes/songs.js";
 import searchRouter from "./routes/searchRouter.js";
+import Debug from "debug";
 
 const app = express();
 const port = process.env.PORT || 3333;
+const debug = Debug("app:startup");
+
+debug("App Started Succesfully");
 
 app.use(express.json());
 app.use(cors());
@@ -18,7 +22,7 @@ app.get("/", (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log(`serveren kører på http://localhost:3333`);
+  console.log(`Serveren kører på http://localhost:3333`);
 });
 
 // Routers
